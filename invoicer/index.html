@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Invoicer</title>
+  <meta name="description" content="Create, send and track professional invoices for your small business.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232446B0'/%3E%3Cpath d='M11 8h7l4 4v12H11z' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M14 17h5M14 21h3' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Schibsted+Grotesk:wght@600;700&display=swap">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/invoice.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <a class="brand" href="#/">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M10 12h5M10 16h3"/></svg>
+        </span>
+        <span>Invoicer</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#/" data-nav="invoices" data-icon="invoices"><span>Invoices</span></a>
+        <a href="#/clients" data-nav="clients" data-icon="clients"><span>Clients</span></a>
+        <a href="#/settings" data-nav="settings" data-icon="settings"><span>Settings</span></a>
+      </nav>
+      <p class="sidebar-foot">Your data stays in this browser. <a href="#/settings">Back it up</a> now and then.</p>
+    </aside>
+    <main id="main" class="main"></main>
+  </div>
+
+  <div id="print-root" class="print-root"></div>
+  <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+  <dialog id="dialog" class="dialog"></dialog>
+
+  <script src="js/core.js"></script>
+  <script src="js/html.js"></script>
+  <script src="js/document.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

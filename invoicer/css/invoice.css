@@ -1,0 +1,367 @@
+/*
+ * The invoice document. It is paper: it keeps its own light palette in every app
+ * theme and when printed. --brand is set per business (see document.js).
+ */
+
+.doc {
+  --paper: #FFFFFF;
+  --ink: #181E29;
+  --ink-soft: #465061;
+  --ink-muted: #6B7483;
+  --rule: #E3E6EB;
+  --brand: #1F3A68;
+  --brand-tint: color-mix(in srgb, var(--brand) 7%, #FFFFFF);
+  --doc-display: "Schibsted Grotesk", "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --doc-body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  width: 800px;
+  min-height: 1035px; /* US Letter proportions */
+  padding: 56px 60px 44px;
+  border-top: 6px solid var(--brand);
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 13px/1.55 var(--doc-body);
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+
+@supports not (color: color-mix(in srgb, red, blue)) {
+  .doc {
+    --brand-tint: #F3F5F8;
+  }
+}
+
+.doc p {
+  margin: 0;
+}
+
+.doc-placeholder {
+  color: #A0A7B3;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Header */
+
+.doc-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.doc-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  max-width: 62%;
+}
+
+.doc-logo {
+  display: block;
+  max-width: 220px;
+  max-height: 76px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.doc-biz {
+  font-family: var(--doc-display);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.doc-lines {
+  color: var(--ink-soft);
+  white-space: pre-line;
+}
+
+.doc-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex: none;
+  text-align: right;
+}
+
+.doc-title h1 {
+  margin: 0;
+  color: var(--brand);
+  font-family: var(--doc-display);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.doc-number {
+  margin-top: 10px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+
+.doc-stamp {
+  margin-top: 18px;
+  padding: 4px 14px;
+  border: 3px solid currentColor;
+  border-radius: 6px;
+  font-family: var(--doc-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transform: rotate(-6deg);
+  opacity: 0.85;
+}
+
+.doc-stamp--paid {
+  color: #177245;
+}
+
+.doc-stamp--void {
+  color: #B42318;
+}
+
+/* Parties and dates */
+
+.doc-parties {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 28px;
+}
+
+.doc-label {
+  margin-bottom: 6px;
+  color: var(--ink-muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.doc-block {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.doc-block p {
+  white-space: pre-line;
+  color: var(--ink-soft);
+}
+
+.doc-block .doc-strong {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.doc-meta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 5px 14px;
+  margin: 0;
+  padding-top: 19px;
+}
+
+.doc-meta dt {
+  color: var(--ink-muted);
+}
+
+.doc-meta dd {
+  margin: 0;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.doc-due {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: var(--brand-tint);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.doc-due-amount {
+  color: var(--brand);
+  font-family: var(--doc-display);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-variant-numeric: lining-nums proportional-nums;
+  overflow-wrap: anywhere;
+}
+
+.doc-due-note {
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+
+/* Line items */
+
+.doc-items {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.doc-col-qty {
+  width: 64px;
+}
+
+.doc-col-rate {
+  width: 120px;
+}
+
+.doc-col-amount {
+  width: 130px;
+}
+
+.doc-items th {
+  padding: 0 0 10px;
+  border-bottom: 1.5px solid var(--brand);
+  color: var(--ink-muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.doc-items td {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+.doc-items .n {
+  padding-left: 16px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.doc-items tr {
+  break-inside: avoid;
+}
+
+.doc-desc {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+/* The first line of a description is its title; later lines are details. */
+.doc-desc::first-line {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* Totals */
+
+.doc-totals {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 28px;
+  width: 320px;
+  margin: -14px 0 0 auto;
+  break-inside: avoid;
+}
+
+.doc-totals dt {
+  color: var(--ink-soft);
+}
+
+.doc-totals dd {
+  margin: 0;
+  text-align: right;
+}
+
+.doc-totals .doc-grand {
+  margin-top: 2px;
+  padding-top: 10px;
+  border-top: 1.5px solid var(--ink);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Notes */
+
+.doc-notes {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  break-inside: avoid;
+}
+
+.doc-notes p {
+  color: var(--ink-soft);
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.doc-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+
+/* ---------- Printing ---------- */
+
+.print-root {
+  display: none;
+}
+
+@media print {
+  @page {
+    margin: 0;
+  }
+
+  html.print-doc body > :not(#print-root) {
+    display: none !important;
+  }
+
+  html.print-doc,
+  html.print-doc body {
+    background: #FFFFFF !important;
+  }
+
+  html.print-doc #print-root {
+    display: block;
+  }
+
+  #print-root .doc {
+    width: auto;
+    min-height: 0;
+    padding: 14mm 16mm 12mm;
+    box-shadow: none;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  .doc-placeholder {
+    visibility: hidden;
+  }
+}

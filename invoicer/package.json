@@ -1,0 +1,11 @@
+{
+  "name": "invoicer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Create, send and track professional invoices for a small business. Runs in the browser with no install.",
+  "scripts": {
+    "start": "npx --yes serve -l 4173 .",
+    "test": "node --test"
+  },
+  "license": "MIT"
+}
